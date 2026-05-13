@@ -1,2 +1,5 @@
-print("Hello World")
-print("AI Architecture learning started")
+import requests
+
+
+print("Github Actions Runnings Successfully ")
+print("Python automation started")
