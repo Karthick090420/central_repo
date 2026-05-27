@@ -1,0 +1,16 @@
+name: Scheduled Workflow
+
+on:
+  schedule:
+    - cron: "40 7 * * *"
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Validation
+        run: echo "Scheduled workflow triggered"
