@@ -12,7 +12,7 @@ jobs:
   
      - name: Get Git Difference
        run: |
-        git diff HEAD~1 HEAD > diff.txt
+        git diff HEAD^ HEAD > diff.txt || echo "Initial commit" > diff.txt
   
      - name: Display Diff
        run: |
