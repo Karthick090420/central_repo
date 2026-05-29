@@ -1,13 +1,12 @@
 name: Reusable AI Documentation Workflow
 
 on:
- workflow_call:
+   workflow_call:
 
 jobs:
-  generate-docs: 
-  runs-on:  ubuntu-latest
-
-  steps:
+    generate-docs:
+     runs-on: ubuntu-latest
+     steps:
      - name: Checkout Source Code
        uses: actions/checkout@v4
   
@@ -21,15 +20,12 @@ jobs:
   
      - name: Generate Documentation
        run: |
-        DIFF_CONTENT=$(cat diff.txt)
-  
         echo "AI Documentation Generated" > GENERATED_DOC.md
         echo "" >> GENERATED_DOC.md
-        echo "$DIFF_CONTENT" >> GENERATED_DOC.md
+        cat diff.txt >> GENERATED_DOC.md
   
      - name: Upload Generated Documentation
        uses: actions/upload-artifact@v4
        with:
-       name: generated-documentation
-      path: GENERATED_DOC.md
-
+        name: generated-documentation
+        path: GENERATED_DOC.md
