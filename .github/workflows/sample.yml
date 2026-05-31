@@ -1,31 +1,29 @@
 name: Claude Skill Workflow
 
 on:
-workflow_dispatch:
-inputs:
-github_url:
-description: 'GitHub Repository URL'
-required: true
-type: string
+  workflow_dispatch:
+    inputs:
+      github_url:
+        description: 'GitHub Repository URL'
+        required: true
+        type: string
 
 jobs:
-generate-docs:
-runs-on: ubuntu-latest
+  generate-docs:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Extract Repository Name
-    run: |
-      REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
-      echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
-
-  - name: Run Claude Skill
-    run: |
-      claude-skill run skill.md --repo "$REPO_NAME"
-
-  - name: Upload Documentation
-    uses: actions/upload-artifact@v4
-    with:
-      name: generated-documentation
-      path: AI_DOCUMENTATION.md
-```
+    steps:
+    - name: Extract Repository Name
+      run: |
+        REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
+        echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+  
+    - name: Run Claude Skill
+      run: |
+        claude-skill run skill.md --repo "$REPO_NAME"
+  
+    - name: Upload Documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-documentation
+        path: AI_DOCUMENTATION.md
