@@ -13,17 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Extract Repository Name
-      run: |
-        REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
-        echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+     - name: Validate Repository
+       run: |
+         REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
+
+          if [ "$REPO_NAME" != "central_repo" ]; then
+            echo "Invalid repository: $REPO_NAME"
+            exit 1
+          fi
   
-    - name: Run Claude Skill
-      run: |
-        claude-skill run skill.md --repo "$REPO_NAME"
-  
-    - name: Upload Documentation
-      uses: actions/upload-artifact@v4
-      with:
-        name: generated-documentation
-        path: AI_DOCUMENTATION.md
+      - name: Run Claude Skill
+        run: |
+          claude-skill run skill.md --repo "$REPO_NAME"
+    
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-documentation
+          path: AI_DOCUMENTATION.md
