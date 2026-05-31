@@ -21,6 +21,7 @@ jobs:
             echo "Invalid repository: $REPO_NAME"
             exit 1
           fi
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
           
       - name: Authenticate Claude 
         env: 
