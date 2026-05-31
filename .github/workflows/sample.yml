@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Validate Repository
-       run: |
+      - name: Validate Repository
+        run: |
          REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
 
           if [ "$REPO_NAME" != "central_repo" ]; then
