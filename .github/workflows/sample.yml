@@ -29,6 +29,11 @@ jobs:
         run: | 
           echo "Authenticate Claude"
         
+      - name: Check Commands
+        run: |
+          which claude
+          which claude-skill || echo "claude-skill not found"
+          
       - name: Run Claude Skill
         run: |
           claude-skill run skill.md --repo "$REPO_NAME"
