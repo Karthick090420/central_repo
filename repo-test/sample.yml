@@ -1,0 +1,46 @@
+name: Claude Skill Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      github_url:
+        description: 'GitHub Repository URL'
+        required: true
+        type: string
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate Repository
+        run: |
+         REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
+
+          if [ "$REPO_NAME" != "central_repo" ]; then
+            echo "Invalid repository: $REPO_NAME"
+            exit 1
+          fi
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          
+      - name: Check Commands
+        run: |
+          which claude
+          which claude-skill || echo "claude-skill not found"
+          
+          
+      - name: Authenticate Claude 
+        env: 
+           CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }} 
+        run: | 
+          echo "Authenticate Claude"
+        
+      - name: Run Claude Skill
+        run: |
+          claude-skill run skill.md --repo "$REPO_NAME"
+    
+      - name: Upload Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-documentation
+          path: AI_DOCUMENTATION.md
