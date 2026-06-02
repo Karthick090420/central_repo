@@ -1,0 +1,30 @@
+name: Scheduled Documentation Generation
+
+on:
+  schedule:
+    - cron: '30 7 * * *'
+
+  workflow_dispatch:
+
+jobs:
+    generate-docs:
+        runs-on: self-hosted
+
+
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v4
+        
+          - name: Get Repository Name
+            run: |
+              echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+        
+          - name: Run Claude Skill
+            run: |
+              claude-skill run skill.md --repo "$REPO_NAME"
+        
+          - name: Upload Documentation
+            uses: actions/upload-artifact@v4
+            with:
+              name: generated-documentation
+              path: AI_DOCUMENTATION.md
