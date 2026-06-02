@@ -1,0 +1,45 @@
+name: Diff Documentation Generation
+
+on:
+ push:
+  branches:
+      - main
+      - master
+
+jobs:
+  generate-docs:
+         runs-on: self-hosted
+
+         steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 2
+          
+            - name: Generate Git Diff
+              run: |
+                if git rev-parse HEAD~1 >/dev/null 2>&1; then
+                  git diff HEAD~1 HEAD > diff.txt
+                else
+                  echo "Initial commit" > diff.txt
+                fi
+          
+            - name: Display Diff
+              run: |
+                cat diff.txt
+          
+            - name: Run Claude Skill 
+              run: | 
+                 cd target_repo 
+                 claude-skill run skill.md --repo "$REPO_NAME"
+          
+            - name: Run Claude Skill
+              run: |
+                echo "Placeholder for Claude skill execution"
+          
+            - name: Upload Diff
+              uses: actions/upload-artifact@v4
+              with:
+                name: git-diff
+                path: diff.txt
+          
