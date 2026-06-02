@@ -1,0 +1,38 @@
+name: Manual Documentation Generation
+
+on:
+  workflow_dispatch:
+    inputs:
+        github_url:
+              description: 'GitHub Repository URL'
+              required: true
+              type: string
+
+jobs:
+    generate-docs:
+      runs-on: self-hosted
+
+      steps:
+        - name: Extract Repository Name
+          run: |
+            REPO_NAME=$(basename "${{ github.event.inputs.github_url }}" .git)
+            echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+      
+        - name: Clone Repository
+          run: |
+            git clone "${{ github.event.inputs.github_url }}" target_repo
+      
+        - name: Validate Skill File
+          run: |
+            test -f target_repo/skill.md
+      
+        - name: Run Claude Skill
+          run: |
+            cd target_repo
+            claude-skill run skill.md --repo "$REPO_NAME"
+      
+        - name: Upload Documentation
+          uses: actions/upload-artifact@v4
+          with:
+            name: generated-documentation
+            path: target_repo/AI_DOCUMENTATION.md
