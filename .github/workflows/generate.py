@@ -5,7 +5,10 @@ REPO_OWNER = "karthick090420"
 REPO_NAME = "cnetral_repo"
 WORKFLOW_FILE = "sample.yml"
 
-GITHUB_TOKEN = "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"
+APP_ID = "3688428"
+INSTALLATION_ID = "131718272"
+PRIVATE_KEY_FILE = "demo_1.key"
+
 
 repository_url = sys.argv[1]
 
