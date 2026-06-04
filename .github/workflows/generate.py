@@ -5,7 +5,7 @@ REPO_OWNER = "karthick090420"
 REPO_NAME = "cnetral_repo"
 WORKFLOW_FILE = "sample.yml"
 
-GITHUB_TOKEN = "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"
+GITHUB_TOKEN = "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"
 
 repository_url = sys.argv[1]
 
