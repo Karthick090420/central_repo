@@ -7,7 +7,7 @@ WORKFLOW_FILE = "sample.yml"
 
 APP_ID = "3688428"
 INSTALLATION_ID = "131718272"
-PRIVATE_KEY_FILE = "demo_1.key"
+PRIVATE_KEY_FILE = "dempkarthick.2026-06-04.private-key.pem"
 
 
 repository_url = sys.argv[1]
