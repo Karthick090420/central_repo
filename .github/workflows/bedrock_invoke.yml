@@ -18,7 +18,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::838661220488:oidc-provider/token.actions.githubusercontent.com
+          role-to-assume: arn:aws:iam::838661220488:role/bedrock_invoke
           aws-region: us-east-1
 
       - name: Verify AWS Identity
