@@ -25,6 +25,9 @@ jobs:
         run: |
           aws sts get-caller-identity
 
+      - name: List Inference Profiles
+        run: aws bedrock list-inference-profiles --region us-east-1
+
       - name: Create Claude Request
         run: |
           cat > request.json << 'EOF'
