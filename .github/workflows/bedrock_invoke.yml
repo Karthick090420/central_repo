@@ -25,9 +25,6 @@ jobs:
         run: |
           aws sts get-caller-identity
 
-      - name: List Inference Profiles
-        run: aws bedrock list-inference-profiles --region us-east-1
-
       - name: Create Claude Request
         run: |
           cat > request.json << 'EOF'
@@ -46,6 +43,7 @@ jobs:
       - name: Invoke Claude
         run: |
           aws bedrock-runtime invoke-model \
+            --region us-east-1 \
             --model-id anthropic.claude-sonnet-4-20250514-v1:0 \
             --body fileb://request.json \
             --cli-binary-format raw-in-base64-out \
