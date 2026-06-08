@@ -44,7 +44,7 @@ jobs:
         run: |
           aws bedrock-runtime invoke-model \
             --region us-east-1 \
-            --model-id anthropic.claude-sonnet-4-20250514-v1:0 \
+            --model-id anthropic.claude-sonnet-4-6 \
             --body fileb://request.json \
             --cli-binary-format raw-in-base64-out \
             response.json
