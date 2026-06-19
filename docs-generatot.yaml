@@ -1,31 +1,32 @@
 name: Reusable AI Documentation Workflow
 
 on:
-   workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
-    generate-docs:
-     runs-on: ubuntu-latest
-     steps:
-     - name: Checkout Source Code
-       uses: actions/checkout@v4
-  
-     - name: Get Git Difference
-       run: |
-        git diff HEAD^ HEAD > diff.txt || echo "Initial commit" > diff.txt
-  
-     - name: Display Diff
-       run: |
-        cat diff.txt
-  
-     - name: Generate Documentation
-       run: |
-        echo "AI Documentation Generated" > GENERATED_DOC.md
-        echo "" >> GENERATED_DOC.md
-        cat diff.txt >> GENERATED_DOC.md
-  
-     - name: Upload Generated Documentation
-       uses: actions/upload-artifact@v4
-       with:
-        name: generated-documentation
-        path: GENERATED_DOC.md
+  generate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Get Git Difference
+        run: |
+          git diff HEAD^ HEAD > diff.txt || echo "Initial commit" > diff.txt
+
+      - name: Display Diff
+        run: |
+          cat diff.txt
+
+      - name: Generate Documentation
+        run: |
+          echo "AI Documentation Generated" > GENERATED_DOC.md
+          echo "" >> GENERATED_DOC.md
+          cat diff.txt >> GENERATED_DOC.md
+
+      - name: Upload Generated Documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-documentation
+          path: GENERATED_DOC.md
