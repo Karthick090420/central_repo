@@ -2,17 +2,18 @@ name: Workflow
 
 on:
   workflow_dispatch:
+
   push:
     branches:
       - main
       - 'feature/**'
     paths:
       - '.github/workflows/readme.yaml'
-      
-jobs:
-   run:
-     runs-on: ubuntu-latest
 
-     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
