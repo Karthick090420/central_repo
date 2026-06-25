@@ -5,7 +5,10 @@ on:
   push:
     branches:
       - main
-      - feature/**
+      - 'feature/**'
+    paths:
+      - '.github/workflows/readme.yaml'
+      
 jobs:
    run:
      runs-on: ubuntu-latest
