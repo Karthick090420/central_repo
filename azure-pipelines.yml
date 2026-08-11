@@ -10,6 +10,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- script: |
+    echo "Current directory:"
+    pwd
+    echo "Repository files:"
+    ls -la
+    echo "All files:"
+    find . -maxdepth 3 -type f
+  displayName: 'Check repository files'
+
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
